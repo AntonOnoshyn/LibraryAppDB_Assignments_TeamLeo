@@ -69,8 +69,6 @@ public class UserStory1_StepDefinitions {
         System.out.println("DB_Util.getAllColumnNamesAsList() = " + DB_Util.getAllColumnNamesAsList());
 
 
-
-
     }
     @Then("verify the below columns are listed in result")
     public void verify_the_below_columns_are_listed_in_result(io.cucumber.datatable.DataTable dataTable) {
