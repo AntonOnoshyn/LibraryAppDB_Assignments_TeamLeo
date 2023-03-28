@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Hooks {
 
-    @Before ("@ui")
+    @Before
     public void setUp(){
         System.out.println("this is coming from BEFORE");
         Driver.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -23,7 +23,7 @@ public class Hooks {
 
     }
 
-    @After ("@ui")
+    @After
     public void tearDown(Scenario scenario){
         System.out.println("this is coming from AFTER");
 
