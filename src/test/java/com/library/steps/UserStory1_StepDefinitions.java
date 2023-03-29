@@ -6,15 +6,20 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
+
 public class UserStory1_StepDefinitions {
 
 
+    String actualResult;
 
-    @Given("Establish the database connection")
+
     public void establish_the_database_connection() {
 
         //HOOKS "DB"
@@ -22,9 +27,11 @@ public class UserStory1_StepDefinitions {
     @When("executing query, query gets all IDs from users")
     public void executing_query_query_gets_all_i_ds_from_users() {
 
-        String query = "select * from users";
+        String query = "select count(*) from users";
 
         DB_Util.runQuery(query);
+
+        actualResult = DB_Util.getFirstRowFirstColumn();
 
 
 
@@ -32,28 +39,12 @@ public class UserStory1_StepDefinitions {
     @Then("verify all users have unique ID")
     public void verify_all_users_have_unique_id() {
 
-        System.out.println("DB_Util.getColumnDataAsList(1) = " + DB_Util.getColumnDataAsList(1));
+        DB_Util.runQuery("select count(distinct id) from users");
 
-        List list = DB_Util.getColumnDataAsList(1);
+       String expectedResult =  DB_Util.getFirstRowFirstColumn();
 
-        int[] arr = { list.size()};
-        HashMap<Integer, Integer> map = new HashMap<>();// create Hashmap of Integers
-        for (int i = 0; i < arr.length; i++) {// Loop to access all array elemnts
-            if( map.containsKey(arr[i])){
-                map.put(arr[i], map.get(arr[i])+1);// Each key is the element, value is the frequency, if e
-            }
-            else {
-                map.put(arr[i],1);// if Key( element ) is present once, add number 1
-            }
-        }
-        for (Map.Entry entry:map.entrySet()) { // reach to each element
 
-            System.out.println("Amount of elements " +entry.getKey() +" "+"Frequency of elements "+ entry.getValue());
-
-            Assert.assertTrue(entry.getValue().equals(1));
-
-        }
-
+        Assert.assertEquals(actualResult,expectedResult);
 
     }
 
@@ -76,8 +67,6 @@ public class UserStory1_StepDefinitions {
         List<String> listOfColumnNames = DB_Util.getAllColumnNamesAsList();
 
         Assert.assertEquals(listOfColumnNames,dataTable);
-
-
 
 
     }

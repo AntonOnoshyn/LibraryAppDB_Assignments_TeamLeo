@@ -5,6 +5,8 @@ SELECT COUNT(DISTINCT id) FROM users;
 
 SELECT *from users;
 
+select
+
 ##US02
 SELECT count(*)  from book_borrow
 where is_returned = 0;
@@ -15,4 +17,7 @@ join books b on bb.book_id = b.id
 join book_categories bc on b.book_category_id = bc.id
 group by name
 order by 2 desc;
+
+
+
 
