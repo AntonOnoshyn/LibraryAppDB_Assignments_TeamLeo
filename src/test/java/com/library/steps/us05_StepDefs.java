@@ -11,7 +11,7 @@ public class us05_StepDefs {
             "join book_categories bc on b.book_category_id = bc.id\n" +
             "group by name\n" +
             "order by 2 desc";
-    String expectedBookGenre;
+    String expectedBookGenre ;
     @When("I execute query to find most popular book genre")
     public void i_execute_query_to_find_most_popular_book_genre() {
      DB_Util.runQuery(query);
